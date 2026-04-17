@@ -12,75 +12,180 @@
 export const CONTENT = {
   brand: {
     name: 'Trust BTP',
-    tagline: 'Le paiement sécurisé par étapes pour vos chantiers de rénovation',
+    tagline: 'Le paiement sécurisé par étapes pour vos travaux',
   },
 
   // ---------- Hero ----------
   hero: {
-    badge: 'Simple, sécurisé et pensé pour les travaux',
+    badge: 'Un système simple pour travailler en confiance',
     title: {
-      line1: 'Payez vos travaux',
-      line2Prefix: 'étape par',
-      line2Middle: 'étape',
-      line2Suffix: '',
+      line1: 'Vous êtes particulier ?',
+      line2Prefix: 'Vous êtes',
+      line2Middle: 'artisan',
+      line2Suffix: '?',
     },
     subtitle:
-      "L'argent est libéré uniquement lorsque chaque étape du chantier est validée.",
+      "Avec Trust BTP, vous travaillez en confiance grâce à un paiement sécurisé étape par étape.",
     extraLine:
-      "Et pendant les phases d\u2019attente, vos fonds peuvent vous faire bénéficier d\u2019avantages fidélité liés à votre projet.",
+      "Le particulier garde le contrôle. L’artisan sécurise sa trésorerie.",
     trustItems: [
-      'Budget sécurisé dès le départ',
-      'Paiement uniquement après validation',
-      'Suivi clair à chaque étape',
-      'Médiation prévue en cas de désaccord',
+      'Paiement sécurisé dès le départ',
+      'Libération à chaque étape validée',
+      'Moins de risques et moins de tensions',
+      'Artisans référencés disponibles',
     ],
-    ctaPrimary: 'Créer mon chantier sécurisé',
-    ctaSecondary: 'Découvrir le fonctionnement',
+    ctaPrimary: 'Créer mon chantier',
+    ctaSecondary: 'Voir comment ça marche',
+  },
+
+  // ---------- Direct Address Section ----------
+  directAddress: {
+    title: 'Une solution pensée pour vous',
+    particulier: {
+      title: 'Vous êtes particulier ?',
+      text:
+        "Vous ne voulez plus payer en avance sans garantie. Vous voulez garder le contrôle de votre budget et avancer sereinement dans vos travaux.",
+      highlight:
+        "Avec Trust BTP, vous payez uniquement lorsque chaque étape est validée.",
+    },
+    artisan: {
+      title: 'Vous êtes artisan ?',
+      text:
+        "Vous en avez assez des retards de paiement et du manque de visibilité. Vous avez besoin de sécuriser votre trésorerie dès le départ.",
+      highlight:
+        "Avec Trust BTP, les paiements suivent l’avancement réel de votre chantier.",
+    },
+  },
+
+  // ---------- Steps ----------
+  steps: {
+    title: 'Comment ça',
+    titleHighlight: 'fonctionne',
+    list: [
+      {
+        num: '01',
+        title: 'Créez votre chantier',
+        desc: 'Les étapes et les montants sont définis à l’avance.',
+      },
+      {
+        num: '02',
+        title: 'Sécurisez le budget',
+        desc: 'Le budget est réservé pour garantir le bon déroulement du chantier.',
+      },
+      {
+        num: '03',
+        title: 'Validez chaque étape',
+        desc: "Le paiement est libéré uniquement lorsque le travail est validé.",
+      },
+      {
+        num: '04',
+        title: 'Finalisez en confiance',
+        desc: 'Le chantier se termine dans un cadre clair pour tous.',
+      },
+    ],
+  },
+
+  // ---------- Value Proposition ----------
+  valueProposition: {
+    title: 'Concrètement, ce que ça change pour vous',
+    particulier: {
+      title: 'Pour vous, particulier',
+      points: [
+        'Vous gardez le contrôle de votre budget',
+        'Vous payez uniquement lorsque le travail est fait',
+        'Vous suivez chaque étape du chantier',
+        'Vous réduisez les risques et les mauvaises surprises',
+      ],
+    },
+    artisan: {
+      title: 'Pour vous, artisan',
+      points: [
+        'Votre trésorerie est sécurisée dès le départ',
+        'Les paiements arrivent au rythme du chantier',
+        'Vous limitez les retards et les impayés',
+        'Vous travaillez dans un cadre plus clair avec vos clients',
+      ],
+    },
+  },
+
+  // ---------- Referenced Artisans ----------
+  artisanNetwork: {
+    title: 'Besoin de trouver le bon artisan ?',
+    subtitle:
+      "Trust BTP vous permet aussi d’accéder à des artisans référencés, pour démarrer votre projet dans un cadre plus rassurant dès le départ.",
+    particulier: {
+      title: 'Vous êtes particulier ?',
+      text:
+        "Consultez notre réseau d’artisans référencés et trouvez plus facilement un professionnel adapté à votre chantier.",
+      cta: 'Voir les artisans référencés',
+    },
+    artisan: {
+      title: 'Vous êtes artisan ?',
+      text:
+        "Rejoignez notre réseau d’artisans référencés et développez votre activité dans un cadre de paiement sécurisé.",
+      cta: 'Rejoindre le réseau',
+    },
+    highlights: [
+      'Artisans référencés',
+      'Mise en relation simplifiée',
+      'Cadre de paiement sécurisé',
+      'Plus de confiance dès le départ',
+    ],
+  },
+
+  // ---------- Loyalty / Benefits ----------
+  loyaltyBenefits: {
+    title: 'Un budget qui reste utile pendant le chantier',
+    subtitle:
+      "Entre deux étapes, les fonds non utilisés peuvent vous donner accès à des avantages fidélité liés à votre projet.",
+    bullets: [
+      'Option activable selon le chantier',
+      'Avantages liés aux travaux',
+      'Aucune action complexe à gérer',
+      'Toujours compatible avec les étapes',
+    ],
+    note:
+      'Ces avantages sont liés au projet et ne constituent pas un produit financier.',
   },
 
   // ---------- Choose Login ----------
   chooseLogin: {
-    title: 'Comment souhaitez-vous démarrer ?',
+    title: 'Démarrez simplement',
     subtitle:
-      "Choisissez le parcours qui vous convient. Trust BTP peut s\u2019utiliser comme un service classique, ou avec votre wallet si vous êtes déjà équipé.",
-
+      "Utilisez Trust BTP comme un service classique ou connectez votre wallet si vous êtes déjà équipé.",
     monerium: {
-      badge: 'Recommandé · Simple et sans crypto visible',
+      badge: 'Recommandé',
       title: 'Créer mon compte',
-      subtitle: 'Un parcours fluide, comme un service en ligne classique',
+      subtitle: 'Simple et sans complexité',
       description:
-        "Vous utilisez Trust BTP simplement, avec une vérification d\u2019identité et un parcours guidé. Aucun wallet à installer, aucune complexité technique à gérer.",
+        "Aucun wallet à installer. Vous utilisez Trust BTP comme un service en ligne classique.",
       bullets: [
-        "Vérification d\u2019identité rapide",
-        'Parcours simple et accompagné',
+        'Parcours guidé',
         'Aucune connaissance technique nécessaire',
-        'Idéal pour particuliers et artisans',
+        'Pensé pour tous',
       ],
       cta: 'Créer mon compte',
     },
-
     wallet: {
-      badge: 'Avancé · Pour utilisateurs déjà équipés',
+      badge: 'Avancé',
       title: 'Connecter mon wallet',
-      subtitle: 'Rabby, MetaMask, Coinbase Wallet\u2026',
+      subtitle: 'Pour utilisateurs équipés',
       description:
-        "Vous avez déjà un wallet ? Connectez-le directement pour accéder à votre chantier et suivre vos opérations en toute autonomie.",
+        "Connectez votre wallet pour accéder directement à votre chantier.",
       bullets: [
-        'Connexion directe à votre wallet',
-        'Accès autonome à vos opérations',
-        'Suivi détaillé du chantier',
-        'Pour utilisateurs familiers du Web3',
+        'Connexion directe',
+        'Accès autonome',
+        'Pour utilisateurs avancés',
       ],
       cta: 'Connecter mon wallet',
     },
   },
 
-  // ---------- KYC ----------
+  // ---------- KYC (préservée — utilisée par MoneriumKYC.tsx) ----------
   kycMonerium: {
     title: 'Créer votre compte Trust BTP',
     subtitle:
-      'Votre identité est vérifiée par notre partenaire. Le parcours reste simple, sécurisé et pensé pour un usage grand public.',
-
+      "Votre identité est vérifiée par notre partenaire. Le parcours reste simple, sécurisé et pensé pour un usage grand public.",
     fields: {
       emailLabel: 'Adresse e-mail',
       emailPlaceholder: 'prenom.nom@exemple.fr',
@@ -91,7 +196,6 @@ export const CONTENT = {
       ribLabel: 'RIB',
       ribHelp: 'Facultatif à cette étape',
     },
-
     sidePanel: {
       title: 'COMMENT ÇA SE PASSE',
       items: [
@@ -117,79 +221,10 @@ export const CONTENT = {
         body: 'Vous utilisez Trust BTP comme un service classique. Toute la complexité technique reste en arrière-plan.',
       },
     },
-
     submit: 'Valider et continuer',
     disclaimer:
       'En validant, vous acceptez les conditions de Trust BTP et celles de notre partenaire.',
-    switchToWallet: "J\u2019ai déjà un wallet — je préfère l\u2019utiliser",
-  },
-
-  // ---------- Steps ----------
-  steps: {
-    title: 'Comment ça',
-    titleHighlight: 'fonctionne',
-    list: [
-      {
-        num: '01',
-        title: 'Créer le chantier',
-        desc: "Les étapes, les montants et les conditions de validation sont définis à l\u2019avance.",
-      },
-      {
-        num: '02',
-        title: 'Sécuriser le budget',
-        desc: 'Le budget prévu pour le chantier est déposé au départ pour lancer les travaux dans un cadre clair.',
-      },
-      {
-        num: '03',
-        title: 'Valider chaque étape',
-        desc: 'À chaque étape terminée, le paiement est libéré lorsque le travail est validé.',
-      },
-      {
-        num: '04',
-        title: 'Clôturer le chantier',
-        desc: "Une fois les travaux terminés, tout l\u2019historique du projet reste accessible.",
-      },
-    ],
-  },
-
-  // ---------- Value Proposition ----------
-  valueProposition: {
-    title: 'Un système plus serein pour tous',
-    artisan: {
-      title: 'Pour les artisans',
-      subtitle: 'Une trésorerie mieux sécurisée et des paiements plus fluides',
-      points: [
-        'Le budget est prévu dès le départ',
-        "Les paiements suivent l\u2019avancement réel du chantier",
-        "Moins de retards et moins d\u2019incertitude",
-        'Une relation client plus claire et plus professionnelle',
-      ],
-    },
-    particulier: {
-      title: 'Pour les particuliers',
-      subtitle: 'Plus de confiance, plus de contrôle, moins de stress',
-      points: [
-        'Vous gardez la main sur votre budget',
-        'Vous payez au fur et à mesure des étapes validées',
-        'Vous suivez le chantier avec plus de transparence',
-        'Un cadre prévu en cas de désaccord',
-      ],
-    },
-  },
-
-  // ---------- Loyalty / Benefits ----------
-  loyaltyBenefits: {
-    title: 'Votre budget peut aussi vous ouvrir des avantages',
-    subtitle:
-      "Pendant les phases d\u2019attente entre deux étapes, les fonds non utilisés peuvent vous faire bénéficier d\u2019avantages fidélité liés à votre chantier, selon les modalités prévues.",
-    bullets: [
-      'Option activable selon le projet',
-      'Avantages fidélité dédiés aux travaux',
-      'Aucune action complexe à gérer',
-      'Toujours compatible avec le rythme du chantier',
-    ],
-    note:
-      'Ces avantages sont liés au projet et ne constituent pas un produit financier.',
+    switchToWallet: 'J’ai déjà un wallet — je préfère l’utiliser',
   },
 
   // ---------- Actions ----------

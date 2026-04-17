@@ -3,19 +3,23 @@
 /**
  * NotConnected — landing page + routage vers l'onboarding.
  *
- * Sections :
- *   1. Hero                   (avec extraLine DeFi teaser)
- *   2. Marketplace bridge     (CTA Parcourir artisans / Poster demande)
- *   3. Steps "Comment ça fonctionne"
- *   4. Value Proposition      (Artisans / Particuliers)
- *   5. DeFi USP               (nouvelle section)
+ * Sections (dans l'ordre vertical) :
+ *   1. Hero              (double interpellation Particulier / Artisan)
+ *   2. Direct Address    (pain points pour chaque cible)
+ *   3. Artisan Network   (marketplace : accéder aux artisans référencés)
+ *   4. Steps             "Comment ça fonctionne"
+ *   5. Value Proposition "Concrètement, ce que ça change pour vous"
+ *   6. Loyalty Benefits  (bonus, avec disclaimer légal)
  *
- * Textes : src/config/content.ts
+ * Tous les textes sont éditables dans src/config/content.ts
  */
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ShieldCheck, Layers, Zap, Scale, Hammer, FileText, Gift, Sparkles } from 'lucide-react'
+import {
+  ShieldCheck, Layers, Zap, Scale, Hammer, FileText, Gift, Sparkles,
+  User, Wrench, ArrowRight,
+} from 'lucide-react'
 import { OnboardingFlow } from '@/components/onboarding/OnboardingFlow'
 import { CONTENT } from '@/config/content'
 
@@ -27,6 +31,8 @@ export default function NotConnected() {
   }
 
   const h = CONTENT.hero
+  const da = CONTENT.directAddress
+  const an = CONTENT.artisanNetwork
   const vp = CONTENT.valueProposition
   const loyalty = CONTENT.loyaltyBenefits
   const trustIcons = [ShieldCheck, Layers, Zap, Scale]
@@ -42,20 +48,25 @@ export default function NotConnected() {
           <div className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.82_0.15_175)]/30 bg-[oklch(0.82_0.15_175)]/10 px-4 py-1.5 text-sm text-[oklch(0.82_0.15_175)]">
             <ShieldCheck className="size-4" /> {h.badge}
           </div>
-          <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight leading-tight">
-            {h.title.line1}<br />
+
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
+            {h.title.line1}
+            <br />
             {h.title.line2Prefix}{' '}
             <span className="text-[oklch(0.82_0.15_175)]">{h.title.line2Middle}</span>
-            {h.title.line2Suffix && ' ' + h.title.line2Suffix}
+            {h.title.line2Suffix && h.title.line2Suffix}
           </h1>
+
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
             {h.subtitle}
           </p>
+
           {h.extraLine && (
             <p className="text-base text-[oklch(0.82_0.15_175)] italic font-medium max-w-xl mx-auto">
               {h.extraLine}
             </p>
           )}
+
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
             <button
               onClick={() => setStarted(true)}
@@ -72,6 +83,7 @@ export default function NotConnected() {
               {h.ctaSecondary}
             </Link>
           </div>
+
           <div className="flex flex-wrap items-center justify-center gap-6 pt-4 text-sm text-muted-foreground">
             {h.trustItems.map((label, i) => {
               const Icon = trustIcons[i] ?? ShieldCheck
@@ -86,19 +98,61 @@ export default function NotConnected() {
         </div>
       </section>
 
-      {/* ============================= MARKETPLACE BRIDGE ============================= */}
+      {/* ============================= DIRECT ADDRESS ============================= */}
       <section className="py-16 px-4">
         <div className="container max-w-5xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-3">
-            Trouver votre artisan{' '}
-            <span className="text-[oklch(0.82_0.15_175)]">en 2 minutes</span>
-          </h2>
+          <h2 className="text-3xl font-bold text-center mb-10">{da.title}</h2>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Particulier */}
+            <div className="rounded-2xl border border-[oklch(0.82_0.15_175)]/20 bg-card p-6 space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[oklch(0.82_0.15_175)]/10">
+                  <User className="size-5 text-[oklch(0.82_0.15_175)]" />
+                </div>
+                <h3 className="text-lg font-bold">{da.particulier.title}</h3>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {da.particulier.text}
+              </p>
+              <div className="rounded-lg bg-[oklch(0.82_0.15_175)]/10 border-l-2 border-[oklch(0.82_0.15_175)] p-3">
+                <p className="text-sm font-semibold text-[oklch(0.82_0.15_175)]">
+                  {da.particulier.highlight}
+                </p>
+              </div>
+            </div>
+
+            {/* Artisan */}
+            <div className="rounded-2xl border border-purple-500/20 bg-card p-6 space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-500/10">
+                  <Wrench className="size-5 text-purple-400" />
+                </div>
+                <h3 className="text-lg font-bold">{da.artisan.title}</h3>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {da.artisan.text}
+              </p>
+              <div className="rounded-lg bg-purple-500/10 border-l-2 border-purple-400 p-3">
+                <p className="text-sm font-semibold text-purple-400">
+                  {da.artisan.highlight}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================= ARTISAN NETWORK ============================= */}
+      <section className="py-16 px-4">
+        <div className="container max-w-5xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-3">{an.title}</h2>
           <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-10">
-            Consultez notre référentiel d&apos;artisans certifiés, filtrés par zone et par
-            compétence. Contact direct, aucune commission cachée.
+            {an.subtitle}
           </p>
 
-          <div className="grid sm:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-4 mb-8">
+            {/* Particulier → Voir les artisans */}
             <Link
               href="/artisans"
               className="group rounded-2xl border-2 border-[oklch(0.82_0.15_175)]/30 bg-card p-6
@@ -108,22 +162,15 @@ export default function NotConnected() {
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[oklch(0.82_0.15_175)]/10">
                   <Hammer className="size-6 text-[oklch(0.82_0.15_175)]" />
                 </div>
-                <div>
-                  <div className="font-bold text-lg">Parcourir les artisans</div>
-                  <div className="text-sm text-muted-foreground">
-                    Filtrer par zone et compétence
-                  </div>
-                </div>
+                <h3 className="font-bold text-lg">{an.particulier.title}</h3>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Artisans référencés · notation vérifiée · certifications
-                (décennale, RGE, Qualibat).
-              </p>
-              <div className="mt-4 text-sm font-semibold text-[oklch(0.82_0.15_175)]">
-                Voir les artisans →
+              <p className="text-sm text-muted-foreground mb-4">{an.particulier.text}</p>
+              <div className="flex items-center gap-2 text-sm font-semibold text-[oklch(0.82_0.15_175)]">
+                {an.particulier.cta} <ArrowRight className="size-4" />
               </div>
             </Link>
 
+            {/* Artisan → Rejoindre le réseau */}
             <Link
               href="/nouvelle-demande"
               className="group rounded-2xl border-2 border-purple-500/30 bg-card p-6
@@ -133,26 +180,24 @@ export default function NotConnected() {
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500/10">
                   <FileText className="size-6 text-purple-400" />
                 </div>
-                <div>
-                  <div className="font-bold text-lg">Poster une demande</div>
-                  <div className="text-sm text-muted-foreground">
-                    Laissez les artisans venir à vous
-                  </div>
-                </div>
+                <h3 className="font-bold text-lg">{an.artisan.title}</h3>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Décrivez votre projet · les artisans correspondant à votre zone et à vos
-                besoins vous contacteront directement.
-              </p>
-              <div className="mt-4 text-sm font-semibold text-purple-400">
-                Poster ma demande →
+              <p className="text-sm text-muted-foreground mb-4">{an.artisan.text}</p>
+              <div className="flex items-center gap-2 text-sm font-semibold text-purple-400">
+                {an.artisan.cta} <ArrowRight className="size-4" />
               </div>
             </Link>
           </div>
 
-          <p className="text-center text-xs text-muted-foreground mt-6">
-            Une fois que vous avez trouvé le bon artisan et convenu d&apos;un devis, Trust BTP sécurise le paiement.
-          </p>
+          {/* Highlights strip */}
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
+            {an.highlights.map((h) => (
+              <div key={h} className="flex items-center gap-1.5">
+                <span className="text-[oklch(0.82_0.15_175)]">✓</span>
+                <span>{h}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -161,9 +206,7 @@ export default function NotConnected() {
         <div className="container max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">
             {CONTENT.steps.title}{' '}
-            <span className="text-[oklch(0.82_0.15_175)]">
-              {CONTENT.steps.titleHighlight}
-            </span>
+            <span className="text-[oklch(0.82_0.15_175)]">{CONTENT.steps.titleHighlight}</span>
           </h2>
           <div className="grid sm:grid-cols-4 gap-6">
             {CONTENT.steps.list.map(({ num, title, desc }, i) => (
@@ -171,7 +214,9 @@ export default function NotConnected() {
                 {i < CONTENT.steps.list.length - 1 && (
                   <div className="hidden sm:block absolute top-5 left-1/2 w-full h-px bg-gradient-to-r from-[oklch(0.82_0.15_175)]/40 to-transparent" />
                 )}
-                <div className="text-5xl font-black text-[oklch(0.82_0.15_175)]/20 leading-none">{num}</div>
+                <div className="text-5xl font-black text-[oklch(0.82_0.15_175)]/20 leading-none">
+                  {num}
+                </div>
                 <h3 className="font-semibold text-sm">{title}</h3>
                 <p className="text-xs text-muted-foreground">{desc}</p>
               </div>
@@ -185,42 +230,36 @@ export default function NotConnected() {
         <div className="container max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-10">{vp.title}</h2>
           <div className="grid sm:grid-cols-2 gap-6">
-            {/* Artisans */}
-            <div className="rounded-2xl border border-purple-500/20 bg-card p-6 space-y-4">
+            {/* Particuliers */}
+            <div className="rounded-2xl border border-[oklch(0.82_0.15_175)]/20 bg-card p-6 space-y-4">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-500/10">
-                  <Zap className="size-5 text-purple-400" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[oklch(0.82_0.15_175)]/10">
+                  <User className="size-5 text-[oklch(0.82_0.15_175)]" />
                 </div>
-                <div>
-                  <h3 className="text-lg font-bold">{vp.artisan.title}</h3>
-                  <p className="text-xs text-muted-foreground">{vp.artisan.subtitle}</p>
-                </div>
+                <h3 className="text-lg font-bold">{vp.particulier.title}</h3>
               </div>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                {vp.artisan.points.map((item) => (
+                {vp.particulier.points.map((item) => (
                   <li key={item} className="flex items-start gap-2">
-                    <span className="text-purple-400 mt-0.5 flex-shrink-0">✓</span>
+                    <span className="text-[oklch(0.82_0.15_175)] mt-0.5 flex-shrink-0">✓</span>
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Particuliers */}
-            <div className="rounded-2xl border border-[oklch(0.82_0.15_175)]/20 bg-card p-6 space-y-4">
+            {/* Artisans */}
+            <div className="rounded-2xl border border-purple-500/20 bg-card p-6 space-y-4">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[oklch(0.82_0.15_175)]/10">
-                  <ShieldCheck className="size-5 text-[oklch(0.82_0.15_175)]" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-500/10">
+                  <Wrench className="size-5 text-purple-400" />
                 </div>
-                <div>
-                  <h3 className="text-lg font-bold">{vp.particulier.title}</h3>
-                  <p className="text-xs text-muted-foreground">{vp.particulier.subtitle}</p>
-                </div>
+                <h3 className="text-lg font-bold">{vp.artisan.title}</h3>
               </div>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                {vp.particulier.points.map((item) => (
+                {vp.artisan.points.map((item) => (
                   <li key={item} className="flex items-start gap-2">
-                    <span className="text-[oklch(0.82_0.15_175)] mt-0.5 flex-shrink-0">✓</span>
+                    <span className="text-purple-400 mt-0.5 flex-shrink-0">✓</span>
                     {item}
                   </li>
                 ))}
