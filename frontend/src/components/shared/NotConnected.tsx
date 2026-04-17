@@ -3,12 +3,14 @@
 /**
  * NotConnected — landing page + routage vers l'onboarding.
  *
- * - Bouton "Commencer" → OnboardingFlow (choix Monerium / Wallet → KYC éventuel)
+ * - Bouton "Commencer" → OnboardingFlow (KYC Monerium par défaut)
+ * - Section marketplace : CTA Parcourir artisans + Poster demande
  * - Les textes sont dans src/config/content.ts (édite-les là)
  */
 
 import { useState } from 'react'
-import { ShieldCheck, Layers, Zap, Scale } from 'lucide-react'
+import Link from 'next/link'
+import { ShieldCheck, Layers, Zap, Scale, Hammer, FileText } from 'lucide-react'
 import { OnboardingFlow } from '@/components/onboarding/OnboardingFlow'
 import { CONTENT } from '@/config/content'
 
@@ -65,6 +67,77 @@ export default function NotConnected() {
               )
             })}
           </div>
+        </div>
+      </section>
+
+      {/* ===== MARKETPLACE SECTION ===== */}
+      <section className="py-16 px-4">
+        <div className="container max-w-5xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-3">
+            {CONTENT.marketplace.title}{' '}
+            <span className="text-[oklch(0.82_0.15_175)]">
+              {CONTENT.marketplace.titleHighlight}
+            </span>
+          </h2>
+          <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-10">
+            {CONTENT.marketplace.subtitle}
+          </p>
+
+          <div className="grid sm:grid-cols-2 gap-4">
+            <Link
+              href="/artisans"
+              className="group rounded-2xl border-2 border-[oklch(0.82_0.15_175)]/30 bg-card p-6
+                         hover:border-[oklch(0.82_0.15_175)] hover:-translate-y-1 transition-all"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[oklch(0.82_0.15_175)]/10">
+                  <Hammer className="size-6 text-[oklch(0.82_0.15_175)]" />
+                </div>
+                <div>
+                  <div className="font-bold text-lg">{CONTENT.marketplace.ctaList}</div>
+                  <div className="text-sm text-muted-foreground">
+                    Filtrer par zone et compétence
+                  </div>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                10 artisans référencés · Trust Score on-chain visible · certifications
+                vérifiées (décennale, RGE, Qualibat).
+              </p>
+              <div className="mt-4 text-sm font-semibold text-[oklch(0.82_0.15_175)]">
+                Voir les artisans →
+              </div>
+            </Link>
+
+            <Link
+              href="/nouvelle-demande"
+              className="group rounded-2xl border-2 border-purple-500/30 bg-card p-6
+                         hover:border-purple-500 hover:-translate-y-1 transition-all"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500/10">
+                  <FileText className="size-6 text-purple-400" />
+                </div>
+                <div>
+                  <div className="font-bold text-lg">{CONTENT.marketplace.ctaPost}</div>
+                  <div className="text-sm text-muted-foreground">
+                    Laissez les artisans venir à vous
+                  </div>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Décrivez votre projet · les artisans correspondant à votre zone et à vos
+                besoins vous contacteront directement.
+              </p>
+              <div className="mt-4 text-sm font-semibold text-purple-400">
+                Poster ma demande →
+              </div>
+            </Link>
+          </div>
+
+          <p className="text-center text-xs text-muted-foreground mt-6">
+            {CONTENT.marketplace.note}
+          </p>
         </div>
       </section>
 

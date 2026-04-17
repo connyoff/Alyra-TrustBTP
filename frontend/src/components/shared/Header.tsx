@@ -1,8 +1,9 @@
 'use client'
 
 import { useRouter, usePathname } from 'next/navigation'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Hammer } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import ConnectButton from './ConnectButton'
 
 export default function Header() {
@@ -12,7 +13,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-10 border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container max-w-5xl mx-auto flex items-center justify-between px-4 py-3">
+      <div className="container max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-3">
           {!isHome && (
             <button
@@ -26,9 +27,25 @@ export default function Header() {
             onClick={() => router.push('/')}
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
-            <Image src="/Logo_TrustBTP.png" alt="Trust BTP" width={85} height={85}/>
+            <Image src="/Logo_TrustBTP.png" alt="Trust BTP" width={85} height={85} />
           </button>
         </div>
+
+        <nav className="hidden sm:flex items-center gap-5 text-sm">
+          <Link
+            href="/artisans"
+            className="flex items-center gap-1.5 text-muted-foreground hover:text-[oklch(0.82_0.15_175)] transition-colors"
+          >
+            <Hammer className="size-4" /> Artisans
+          </Link>
+          <Link
+            href="/nouvelle-demande"
+            className="text-muted-foreground hover:text-[oklch(0.82_0.15_175)] transition-colors"
+          >
+            Poster une demande
+          </Link>
+        </nav>
+
         <ConnectButton />
       </div>
     </header>

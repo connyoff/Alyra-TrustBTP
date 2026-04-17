@@ -183,6 +183,18 @@ export const CONTENT = {
     },
   },
 
+  // ---------- Marketplace (landing CTA section) ----------
+  marketplace: {
+    title: 'Trouver votre artisan',
+    titleHighlight: 'en 2 minutes',
+    subtitle:
+      'Parcourez notre référentiel d\u2019artisans certifiés, filtrés par zone et par compétence. Trust Score on-chain visible. Contact direct, zéro intermédiaire.',
+    ctaList: 'Parcourir les artisans',
+    ctaPost: 'Poster une demande',
+    note:
+      'Une fois que vous avez trouvé le bon artisan et convenu d\'un devis, Trust BTP sécurise le paiement.',
+  },
+
   // ---------- Common actions ----------
   actions: {
     back: '← Retour',
