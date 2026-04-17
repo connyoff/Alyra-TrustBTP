@@ -1,0 +1,7 @@
+{
+  "SepoliaTrustBTP": {
+    "owner":    "0xDc09F7acC22B91EDC38F5C54ca558d3a5877A881",
+    "treasury": "0x32CC322249E061C3F4c8eea7FFb72832f021ec3D",
+    "arbiter":  "0xDc09F7acC22B91EDC38F5C54ca558d3a5877A881"
+  }
+}

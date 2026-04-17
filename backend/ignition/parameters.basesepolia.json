@@ -1,0 +1,8 @@
+{
+  "BaseSepoliaTrustBTP": {
+    "owner":    "0xYOUR_OWNER_ADDRESS",
+    "treasury": "0xYOUR_TREASURY_ADDRESS",
+    "arbiter":  "0xYOUR_ARBITER_ADDRESS",
+    "mintTo":   "0xYOUR_DEV_WALLET_ADDRESS"
+  }
+}
