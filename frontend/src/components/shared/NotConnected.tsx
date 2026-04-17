@@ -18,7 +18,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import {
   ShieldCheck, Layers, Zap, Scale, Hammer, FileText, Gift, Sparkles,
-  User, Wrench, ArrowRight,
+  User, Wrench, ArrowRight, AlertTriangle, Users, Gavel,
 } from 'lucide-react'
 import { OnboardingFlow } from '@/components/onboarding/OnboardingFlow'
 import { CONTENT } from '@/config/content'
@@ -35,6 +35,7 @@ export default function NotConnected() {
   const an = CONTENT.artisanNetwork
   const vp = CONTENT.valueProposition
   const loyalty = CONTENT.loyaltyBenefits
+  const arb = CONTENT.arbitrage
   const trustIcons = [ShieldCheck, Layers, Zap, Scale]
 
   return (
@@ -222,6 +223,57 @@ export default function NotConnected() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ============================= ARBITRAGE (Excalidraw flow) ============================= */}
+      <section className="py-16 px-4">
+        <div className="container max-w-5xl mx-auto">
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <AlertTriangle className="size-5 text-orange-400" />
+            <h2 className="text-3xl font-bold text-center">{arb.title}</h2>
+          </div>
+          <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-10">
+            {arb.subtitle}
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-4 relative">
+            {arb.levels.map((lv, i) => {
+              const isLast = i === arb.levels.length - 1
+              const icons = [Users, ShieldCheck, Gavel]
+              const Icon = icons[i] ?? Users
+              const colors = ['orange-400', 'yellow-400', 'red-400']
+              const color = colors[i] ?? 'orange-400'
+              return (
+                <div key={lv.num} className="relative">
+                  <div className={`rounded-2xl border border-${color}/30 bg-card p-5 h-full`}>
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className={`flex h-10 w-10 items-center justify-center rounded-full bg-${color}/10 font-bold text-${color}`}>
+                        {lv.num}
+                      </div>
+                      <div>
+                        <div className="font-bold">{lv.name}</div>
+                        <div className={`text-xs text-${color}`}>{lv.duration}</div>
+                      </div>
+                      <Icon className={`size-5 ml-auto text-${color}`} />
+                    </div>
+                    <p className="text-sm text-muted-foreground">{lv.desc}</p>
+                  </div>
+                  {!isLast && (
+                    <div className="hidden md:flex absolute top-1/2 -right-2 -translate-y-1/2 z-10">
+                      <ArrowRight className="size-4 text-muted-foreground" />
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+
+          {arb.note && (
+            <p className="text-center text-xs text-muted-foreground italic mt-6 max-w-2xl mx-auto">
+              ⓘ {arb.note}
+            </p>
+          )}
         </div>
       </section>
 

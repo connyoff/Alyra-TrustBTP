@@ -19,10 +19,10 @@ export const CONTENT = {
   hero: {
     badge: 'Un système simple pour travailler en confiance',
     title: {
-      line1: 'Vous êtes particulier ?',
-      line2Prefix: 'Vous êtes',
-      line2Middle: 'artisan',
-      line2Suffix: '?',
+      line1: 'Rénovez en confiance',
+      line2Prefix: 'Payez en',
+      line2Middle: 'sécurité',
+      line2Suffix: '',
     },
     subtitle:
       "Avec Trust BTP, vous travaillez en confiance grâce à un paiement sécurisé étape par étape.",
@@ -57,32 +57,66 @@ export const CONTENT = {
     },
   },
 
-  // ---------- Steps ----------
+  // ---------- Steps (aligné sur les diagrammes Excalidraw — 5 étapes) ----------
   steps: {
     title: 'Comment ça',
     titleHighlight: 'fonctionne',
     list: [
       {
         num: '01',
-        title: 'Créez votre chantier',
-        desc: 'Les étapes et les montants sont définis à l’avance.',
+        title: 'Inscription & KYC',
+        desc: 'Vous créez votre compte. Votre identité est vérifiée simplement.',
       },
       {
         num: '02',
-        title: 'Sécurisez le budget',
-        desc: 'Le budget est réservé pour garantir le bon déroulement du chantier.',
+        title: 'Devis & Signature',
+        desc: 'Les étapes, les montants et les preuves attendues sont définis et signés.',
       },
       {
         num: '03',
-        title: 'Validez chaque étape',
-        desc: "Le paiement est libéré uniquement lorsque le travail est validé.",
+        title: 'Dépôt du budget',
+        desc: 'Le budget du chantier est déposé et sécurisé pour démarrer.',
       },
       {
         num: '04',
-        title: 'Finalisez en confiance',
-        desc: 'Le chantier se termine dans un cadre clair pour tous.',
+        title: 'Validation des étapes',
+        desc: 'Chaque étape validée libère automatiquement son paiement.',
+      },
+      {
+        num: '05',
+        title: 'Rapport final',
+        desc: 'Le chantier est clôturé et tout l’historique reste accessible.',
       },
     ],
+  },
+
+  // ---------- Arbitrage (branche d'exception du diagramme Excalidraw) ----------
+  arbitrage: {
+    title: 'En cas de désaccord : un cadre clair',
+    subtitle:
+      "Si vous ne parvenez pas à vous entendre sur une étape, un processus en 3 niveaux est prévu. Les fonds restent gelés tant qu'une solution n'est pas trouvée.",
+    levels: [
+      {
+        num: '1',
+        name: 'Amiable',
+        duration: '15 jours',
+        desc: 'Vous échangez directement pour trouver un accord entre vous.',
+      },
+      {
+        num: '2',
+        name: 'Médiation',
+        duration: '30 jours',
+        desc: 'Un médiateur indépendant vous aide à trouver un terrain d’entente.',
+      },
+      {
+        num: '3',
+        name: 'Arbitrage indépendant',
+        duration: '21 jours',
+        desc: 'Un arbitre tiers tranche et la décision s’applique automatiquement.',
+      },
+    ],
+    note:
+      "Trust BTP ne décide jamais de l'issue du litige — la résolution est toujours confiée à un tiers indépendant.",
   },
 
   // ---------- Value Proposition ----------
@@ -148,6 +182,32 @@ export const CONTENT = {
       'Ces avantages sont liés au projet et ne constituent pas un produit financier.',
   },
 
+  // ---------- Choose Persona (Particulier / Artisan) ----------
+  choosePersona: {
+    title: 'Vous êtes…',
+    subtitle: 'Votre parcours sera adapté à votre profil.',
+    particulier: {
+      title: 'Particulier',
+      subtitle: 'Je fais faire des travaux dans mon logement',
+      bullets: [
+        'Je garde le contrôle de mon budget',
+        'Je paie au rythme des étapes validées',
+        'Je bénéficie d’avantages fidélité sur les fonds en attente',
+      ],
+      cta: 'Créer mon compte particulier',
+    },
+    artisan: {
+      title: 'Artisan',
+      subtitle: 'Je réalise des chantiers pour des particuliers',
+      bullets: [
+        'Ma trésorerie est sécurisée dès le démarrage',
+        'Je reçois les paiements à chaque étape validée',
+        'Je rejoins un réseau d’artisans référencés',
+      ],
+      cta: 'Créer mon compte artisan',
+    },
+  },
+
   // ---------- Choose Login ----------
   chooseLogin: {
     title: 'Démarrez simplement',
@@ -181,11 +241,24 @@ export const CONTENT = {
     },
   },
 
-  // ---------- KYC (préservée — utilisée par MoneriumKYC.tsx) ----------
+  // ---------- KYC (préservée — utilisée par MoneriumKYC.tsx, mode particulier + artisan) ----------
   kycMonerium: {
+    titleParticulier: 'Créer votre compte particulier',
+    titleArtisan: 'Créer votre compte artisan professionnel',
     title: 'Créer votre compte Trust BTP',
     subtitle:
       "Votre identité est vérifiée par notre partenaire. Le parcours reste simple, sécurisé et pensé pour un usage grand public.",
+    subtitleArtisan:
+      "Votre identité et votre entreprise sont vérifiées par notre partenaire. KYB pro avec SIRET, Kbis et attestation décennale.",
+    artisanFields: {
+      siretLabel: 'Numéro SIRET',
+      siretPlaceholder: '123 456 789 00012',
+      siretHelp: 'Vérifié automatiquement via l’INSEE',
+      kbisLabel: 'Extrait Kbis (< 3 mois)',
+      kbisHelp: 'PDF · délivré par le greffe du tribunal de commerce',
+      decennalLabel: 'Attestation de décennale',
+      decennalHelp: 'PDF · en cours de validité',
+    },
     fields: {
       emailLabel: 'Adresse e-mail',
       emailPlaceholder: 'prenom.nom@exemple.fr',
