@@ -26,7 +26,7 @@ export default function Header() {
             onClick={() => router.push('/')}
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
-            <Image src="/Logo_TrustBTP.png" alt="Trust BTP" width={85} height={85} />
+            <Image src="/Logo_TrustBTP_green.svg" alt="Trust BTP" width={94} height={90} priority />
           </button>
         </div>
 

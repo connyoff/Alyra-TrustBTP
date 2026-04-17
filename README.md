@@ -5,7 +5,7 @@
 [![Contexte](https://img.shields.io/badge/contexte-Certification%20Alyra%20Web3-purple)]()
 
 <p align="center">
-  <img src="frontend/public/Logo_TrustBTP.png" alt="Trust BTP" width="220"/>
+  <img src="frontend/public/Logo_TrustBTP_green.svg" alt="Trust BTP" width="220"/>
 </p>
 
 > **Trust BTP** — Plateforme Web3 qui sécurise les paiements de travaux entre particuliers et artisans via un escrow smart contract à jalons, génère du yield DeFi (Aave v3) sur les fonds en attente, et construit la réputation on-chain via un Trust Score automatique. Architecture **compliance-first** (orchestrateur technique non-custodial).
