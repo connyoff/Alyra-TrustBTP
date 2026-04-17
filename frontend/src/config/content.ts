@@ -6,196 +6,193 @@
  * Tous les textes de l'app sont centralisés ici pour faciliter les corrections
  * rapides sans fouiller dans le code. Modifie une valeur, sauvegarde,
  * Next.js recharge la page automatiquement.
- *
- * Convention : garder la structure, ne modifier que les chaînes de caractères.
  * ===========================================================================
  */
 
 export const CONTENT = {
   brand: {
     name: 'Trust BTP',
-    tagline: "L'escrow décentralisé pour vos chantiers",
+    tagline: 'Le paiement sécurisé par étapes pour vos chantiers de rénovation',
   },
 
-  // ---------- Hero (landing) ----------
+  // ---------- Hero ----------
   hero: {
-    badge: 'Paiements sécurisés par smart contract',
+    badge: 'Simple, sécurisé et pensé pour les travaux',
     title: {
-      line1: 'Sécurisez vos chantiers',
-      line2Prefix: "avec l'",
-      line2Middle: 'escrow',
-      line2Suffix: 'décentralisé',
+      line1: 'Payez vos travaux',
+      line2Prefix: 'étape par',
+      line2Middle: 'étape',
+      line2Suffix: '',
     },
     subtitle:
-      'Dépôt, jalons, validation, libération — chaque étape est automatisée, traçable et transparente.',
+      "L'argent est libéré uniquement lorsque chaque étape du chantier est validée.",
+    extraLine:
+      "Et pendant les phases d\u2019attente, vos fonds peuvent vous faire bénéficier d\u2019avantages fidélité liés à votre projet.",
     trustItems: [
-      'Aucun intermédiaire',
-      'Fonds bloqués en escrow',
-      'Libération par jalons',
-      'Arbitrage intégré',
+      'Budget sécurisé dès le départ',
+      'Paiement uniquement après validation',
+      'Suivi clair à chaque étape',
+      'Médiation prévue en cas de désaccord',
     ],
-    ctaPrimary: 'Commencer',
-    ctaSecondary: "En savoir plus",
+    ctaPrimary: 'Créer mon chantier sécurisé',
+    ctaSecondary: 'Découvrir le fonctionnement',
   },
 
-  // ---------- Choose Login (Monerium vs Wallet) ----------
+  // ---------- Choose Login ----------
   chooseLogin: {
-    title: 'Comment souhaitez-vous vous connecter ?',
+    title: 'Comment souhaitez-vous démarrer ?',
     subtitle:
-      'Trust BTP vous propose deux chemins selon votre profil. Vous pouvez changer plus tard.',
+      "Choisissez le parcours qui vous convient. Trust BTP peut s\u2019utiliser comme un service classique, ou avec votre wallet si vous êtes déjà équipé.",
 
     monerium: {
-      badge: 'Recommandé · Grand public',
-      title: 'Compte Trust BTP',
-      subtitle: 'Avec KYC Monerium · pas de crypto visible',
+      badge: 'Recommandé · Simple et sans crypto visible',
+      title: 'Créer mon compte',
+      subtitle: 'Un parcours fluide, comme un service en ligne classique',
       description:
-        'Connexion via email et pièce d\'identité. Aucun wallet à installer. Tout est géré en coulisse par notre partenaire bancaire Monerium (EMI MiCA agréée).',
+        "Vous utilisez Trust BTP simplement, avec une vérification d\u2019identité et un parcours guidé. Aucun wallet à installer, aucune complexité technique à gérer.",
       bullets: [
-        'KYC conforme LCB-FT en 3 min',
-        'IBAN dédié créé automatiquement',
-        'Crypto invisible (Web2 experience)',
-        'Idéal pour les particuliers et artisans',
+        "Vérification d\u2019identité rapide",
+        'Parcours simple et accompagné',
+        'Aucune connaissance technique nécessaire',
+        'Idéal pour particuliers et artisans',
       ],
-      cta: 'Ouvrir mon compte',
+      cta: 'Créer mon compte',
     },
 
     wallet: {
-      badge: 'Power user · Web3 natif',
+      badge: 'Avancé · Pour utilisateurs déjà équipés',
       title: 'Connecter mon wallet',
-      subtitle: 'Rabby, MetaMask, Coinbase Wallet…',
+      subtitle: 'Rabby, MetaMask, Coinbase Wallet\u2026',
       description:
-        'Utilisez votre wallet existant. Le NFT chantier s\'affiche directement dedans. Vous gardez la self-custody complète et l\'accès aux preuves on-chain.',
+        "Vous avez déjà un wallet ? Connectez-le directement pour accéder à votre chantier et suivre vos opérations en toute autonomie.",
       bullets: [
-        'Self-custody complète',
-        'NFT chantier visible dans le wallet',
-        'Accès direct aux transactions on-chain',
-        'Pour développeurs et utilisateurs avertis',
+        'Connexion directe à votre wallet',
+        'Accès autonome à vos opérations',
+        'Suivi détaillé du chantier',
+        'Pour utilisateurs familiers du Web3',
       ],
       cta: 'Connecter mon wallet',
     },
   },
 
-  // ---------- Monerium KYC Form ----------
+  // ---------- KYC ----------
   kycMonerium: {
-    title: 'Ouvrir votre compte Trust BTP',
+    title: 'Créer votre compte Trust BTP',
     subtitle:
-      'KYC opéré par Monerium — établissement de monnaie électronique agréé (EMI MiCA Titre III). Pas de crypto visible dans votre parcours.',
+      'Votre identité est vérifiée par notre partenaire. Le parcours reste simple, sécurisé et pensé pour un usage grand public.',
 
     fields: {
       emailLabel: 'Adresse e-mail',
       emailPlaceholder: 'prenom.nom@exemple.fr',
       phoneLabel: 'Numéro de téléphone',
       phonePlaceholder: '+33 6 12 34 56 78',
-      idLabel: "Pièce d'identité (CNI / passeport)",
-      idHelp: 'PDF ou JPG · max 5 Mo · recto-verso si CNI',
-      ribLabel: 'RIB (pour le remboursement de la provision médiation)',
-      ribHelp: 'Facultatif à cette étape — pourra être complété plus tard',
+      idLabel: "Pièce d'identité",
+      idHelp: 'PDF ou JPG · max 5 Mo',
+      ribLabel: 'RIB',
+      ribHelp: 'Facultatif à cette étape',
     },
 
     sidePanel: {
-      title: 'EN COULISSE',
+      title: 'COMMENT ÇA SE PASSE',
       items: [
         {
-          title: 'Monerium vérifie votre identité',
-          sub: 'LCB-FT + DSP2, conformité européenne',
+          title: 'Votre identité est vérifiée',
+          sub: 'par un partenaire agréé, selon les règles en vigueur',
         },
         {
-          title: 'Un IBAN dédié est créé',
-          sub: 'cantonnement ACPR',
+          title: 'Votre parcours de paiement est sécurisé',
+          sub: 'pour protéger chaque étape du chantier',
         },
         {
-          title: 'Un wallet smart contract vous est assigné',
-          sub: 'invisible pour vous — vous restez côté Web2',
+          title: 'Les éléments techniques sont créés automatiquement',
+          sub: 'sans action complexe de votre part',
         },
         {
-          title: 'Vos données sensibles sont chiffrées',
-          sub: 'RGPD · stockage européen off-chain',
+          title: 'Vos données restent protégées',
+          sub: 'avec un traitement conforme aux exigences applicables',
         },
       ],
       callout: {
-        title: 'Web3 invisible.',
-        body: 'Aucun mot de passe crypto, aucune clé privée. Vous ne voyez que votre banque et Trust BTP.',
+        title: 'Une expérience simple',
+        body: 'Vous utilisez Trust BTP comme un service classique. Toute la complexité technique reste en arrière-plan.',
       },
     },
 
-    submit: 'Valider mon KYC — continuer',
+    submit: 'Valider et continuer',
     disclaimer:
-      'En validant, vous acceptez les CGU de Trust BTP et les conditions de Monerium EMI.',
-    switchToWallet:
-      "Je suis un utilisateur avancé — je préfère connecter mon wallet (Rabby, MetaMask…)",
+      'En validant, vous acceptez les conditions de Trust BTP et celles de notre partenaire.',
+    switchToWallet: "J\u2019ai déjà un wallet — je préfère l\u2019utiliser",
   },
 
-  // ---------- Steps explainer ----------
+  // ---------- Steps ----------
   steps: {
     title: 'Comment ça',
-    titleHighlight: 'marche',
+    titleHighlight: 'fonctionne',
     list: [
       {
         num: '01',
         title: 'Créer le chantier',
-        desc: "L'artisan définit les jalons, montants et conditions de validation.",
+        desc: "Les étapes, les montants et les conditions de validation sont définis à l\u2019avance.",
       },
       {
         num: '02',
-        title: 'Déposer les fonds',
-        desc: "Le client dépose 110 % du devis dans le smart contract d'escrow.",
+        title: 'Sécuriser le budget',
+        desc: 'Le budget prévu pour le chantier est déposé au départ pour lancer les travaux dans un cadre clair.',
       },
       {
         num: '03',
-        title: 'Valider les jalons',
-        desc: 'À chaque étape, le client valide — les fonds sont libérés à l\'artisan.',
+        title: 'Valider chaque étape',
+        desc: 'À chaque étape terminée, le paiement est libéré lorsque le travail est validé.',
       },
       {
         num: '04',
-        title: 'Clôturer',
-        desc: 'Le chantier est terminé, les fonds sont intégralement distribués.',
+        title: 'Clôturer le chantier',
+        desc: "Une fois les travaux terminés, tout l\u2019historique du projet reste accessible.",
       },
     ],
   },
 
-  // ---------- Two audiences ----------
-  audiences: {
-    title: 'Conçu pour',
-    titleHighlight: 'deux mondes',
-
-    particuliers: {
-      title: 'Particuliers',
-      lead: 'Vous faites des travaux ? Ne payez plus dans le flou.',
-      items: [
-        'Vos fonds sont bloqués, pas perdus — visibilité totale',
-        'Libération uniquement quand le jalon est validé',
-        'Mécanisme de contestation intégré si désaccord',
-        "Plus besoin d'attendre 6–24 mois devant un tribunal",
-        'Adapté aux chantiers < 15 000 €',
+  // ---------- Value Proposition ----------
+  valueProposition: {
+    title: 'Un système plus serein pour tous',
+    artisan: {
+      title: 'Pour les artisans',
+      subtitle: 'Une trésorerie mieux sécurisée et des paiements plus fluides',
+      points: [
+        'Le budget est prévu dès le départ',
+        "Les paiements suivent l\u2019avancement réel du chantier",
+        "Moins de retards et moins d\u2019incertitude",
+        'Une relation client plus claire et plus professionnelle',
       ],
     },
-
-    artisans: {
-      title: 'Artisans',
-      lead: 'Vous êtes artisan ? Sécurisez votre trésorerie.',
-      items: [
-        'Le paiement est préparé et verrouillé avant le démarrage',
-        'Libération automatique à chaque jalon validé',
-        'Plus de retards de paiement ou de clients fantômes',
-        'Confiance renforcée avec vos clients',
-        'Concentrez-vous sur le chantier, pas sur le recouvrement',
+    particulier: {
+      title: 'Pour les particuliers',
+      subtitle: 'Plus de confiance, plus de contrôle, moins de stress',
+      points: [
+        'Vous gardez la main sur votre budget',
+        'Vous payez au fur et à mesure des étapes validées',
+        'Vous suivez le chantier avec plus de transparence',
+        'Un cadre prévu en cas de désaccord',
       ],
     },
   },
 
-  // ---------- Marketplace (landing CTA section) ----------
-  marketplace: {
-    title: 'Trouver votre artisan',
-    titleHighlight: 'en 2 minutes',
+  // ---------- Loyalty / Benefits ----------
+  loyaltyBenefits: {
+    title: 'Votre budget peut aussi vous ouvrir des avantages',
     subtitle:
-      'Parcourez notre référentiel d\u2019artisans certifiés, filtrés par zone et par compétence. Trust Score on-chain visible. Contact direct, zéro intermédiaire.',
-    ctaList: 'Parcourir les artisans',
-    ctaPost: 'Poster une demande',
+      "Pendant les phases d\u2019attente entre deux étapes, les fonds non utilisés peuvent vous faire bénéficier d\u2019avantages fidélité liés à votre chantier, selon les modalités prévues.",
+    bullets: [
+      'Option activable selon le projet',
+      'Avantages fidélité dédiés aux travaux',
+      'Aucune action complexe à gérer',
+      'Toujours compatible avec le rythme du chantier',
+    ],
     note:
-      'Une fois que vous avez trouvé le bon artisan et convenu d\'un devis, Trust BTP sécurise le paiement.',
+      'Ces avantages sont liés au projet et ne constituent pas un produit financier.',
   },
 
-  // ---------- Common actions ----------
+  // ---------- Actions ----------
   actions: {
     back: '← Retour',
     continue: 'Continuer →',
