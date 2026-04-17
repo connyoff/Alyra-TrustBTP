@@ -75,7 +75,7 @@ export const CONTENT = {
       {
         num: '03',
         title: 'Dépôt du budget',
-        desc: 'Le budget du chantier est déposé et sécurisé pour démarrer.',
+        desc: 'Vous déposez 110 % (100 % chantier + 5 % service + 5 % provision remboursable). Option : activer l’avantage fidélité.',
       },
       {
         num: '04',
@@ -167,19 +167,46 @@ export const CONTENT = {
     ],
   },
 
-  // ---------- Loyalty / Benefits ----------
-  loyaltyBenefits: {
-    title: 'Un budget qui reste utile pendant le chantier',
+  // ---------- Budget Transparent (décomposition 110 %) ----------
+  budgetTransparent: {
+    title: 'Votre budget, en toute transparence',
     subtitle:
-      "Entre deux étapes, les fonds non utilisés peuvent vous donner accès à des avantages fidélité liés à votre projet.",
-    bullets: [
-      'Option activable selon le chantier',
-      'Avantages liés aux travaux',
-      'Aucune action complexe à gérer',
-      'Toujours compatible avec les étapes',
+      "À la signature du devis, vous déposez 110 % du coût du chantier. Voici exactement à quoi sert chaque euro.",
+    total: '110 %',
+    totalLabel: 'déposés à la signature',
+    breakdown: [
+      {
+        pct: '100 %',
+        label: 'Coût du chantier',
+        desc: 'Versé à l’artisan au rythme des étapes validées.',
+        color: 'teal' as const,
+      },
+      {
+        pct: '5 %',
+        label: 'Commission Trust BTP',
+        desc: 'Pour faire vivre le service : orchestration, sécurité, support.',
+        color: 'purple' as const,
+      },
+      {
+        pct: '5 %',
+        label: 'Provision litige',
+        desc: 'Remboursée intégralement si pas de litige. Sinon, couvre la médiation.',
+        color: 'orange' as const,
+      },
     ],
-    note:
-      'Ces avantages sont liés au projet et ne constituent pas un produit financier.',
+    loyaltyOption: {
+      title: 'Avantage fidélité intégré au paiement',
+      description:
+        "Au moment du dépôt, vous pouvez activer une option : pendant que votre budget attend entre deux étapes, les fonds non utilisés peuvent vous donner accès à des avantages fidélité liés à votre chantier.",
+      bullets: [
+        'Option activable à l’étape du dépôt du budget',
+        'Avantages liés à votre chantier',
+        'Aucune gestion à faire de votre côté',
+        'Disponibles dès que le chantier en a besoin',
+      ],
+      note:
+        'Ces avantages sont liés au projet et ne constituent pas un produit financier.',
+    },
   },
 
   // ---------- Choose Persona (Particulier / Artisan) ----------
