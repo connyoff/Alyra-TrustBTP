@@ -104,6 +104,20 @@ export default function NotConnected() {
               )
             })}
           </div>
+
+          {/* Bouton dédié : accès direct au réseau d'artisans */}
+          <div className="pt-6">
+            <Link
+              href="/artisans"
+              className="inline-flex items-center gap-2 rounded-full border-2 border-[oklch(0.82_0.15_175)]/50 bg-[oklch(0.82_0.15_175)]/5 text-[oklch(0.82_0.15_175)]
+                         px-6 py-2.5 text-sm font-semibold
+                         hover:bg-[oklch(0.82_0.15_175)]/10 hover:border-[oklch(0.82_0.15_175)] transition-colors"
+            >
+              <Hammer className="size-4" />
+              Voir les artisans référencés disponibles
+              <ArrowRight className="size-4" />
+            </Link>
+          </div>
         </div>
       </section>
 

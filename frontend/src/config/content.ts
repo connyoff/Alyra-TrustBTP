@@ -26,8 +26,7 @@ export const CONTENT = {
     },
     subtitle:
       "Avec Trust BTP, vous travaillez en confiance grâce à un paiement sécurisé étape par étape.",
-    extraLine:
-      "Le particulier garde le contrôle. L’artisan sécurise sa trésorerie.",
+    extraLine: '',
     trustItems: [
       'Paiement sécurisé dès le départ',
       'Libération à chaque étape validée',
