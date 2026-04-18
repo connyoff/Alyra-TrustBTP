@@ -98,24 +98,24 @@ export const CONTENT = {
       {
         num: '1',
         name: 'Amiable',
-        duration: '15 jours',
-        desc: 'Vous échangez directement pour trouver un accord entre vous.',
+        duration: '7 jours',
+        desc: 'Échange direct entre particulier et artisan pour trouver une solution.',
       },
       {
         num: '2',
         name: 'Médiation',
         duration: '30 jours',
-        desc: 'Un médiateur indépendant vous aide à trouver un terrain d’entente.',
+        desc: "Intervention d'un médiateur indépendant partenaire pour faciliter un accord et proposer un pourcentage de répartition du jalon.",
       },
       {
         num: '3',
-        name: 'Arbitrage indépendant',
-        duration: '21 jours',
-        desc: 'Un arbitre tiers tranche et la décision s’applique automatiquement.',
+        name: 'Recours externe',
+        duration: 'Sortie Trust BTP',
+        desc: "Dossier complet fourni (preuves horodatées, historique) pour action juridique ou recours à l'assurance.",
       },
     ],
     note:
-      "Trust BTP ne décide jamais de l'issue du litige — la résolution est toujours confiée à un tiers indépendant.",
+      "Trust BTP ne décide jamais de l'issue du litige — la résolution est confiée à un tiers indépendant, et au-delà la voie juridique ou assurantielle reste ouverte.",
   },
 
   // ---------- Value Proposition ----------
