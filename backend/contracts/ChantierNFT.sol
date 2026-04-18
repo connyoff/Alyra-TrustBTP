@@ -9,21 +9,31 @@ import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 import {IChantierNFT} from "./interfaces/IChantierNFT.sol";
 import {DataTypes} from "./libraries/DataTypes.sol";
 
-/// @title ChantierNFT — Contrat de chantier NFT soulbound Trust BTP
+/// @title ChantierNFT — NFT soulbound Trust BTP (dual-mint)
 ///
-/// @notice Un seul NFT (tokenId = chantierId) est minté par chantier
-///         au moment de l'acceptation du devis.
+/// @notice À chaque chantier correspondent DEUX NFT soulbound :
+///           - un pour le particulier  (tokenId = chantierId)
+///           - un pour l'artisan       (tokenId = ARTISAN_TOKEN_OFFSET + chantierId)
 ///
-///         Le NFT est détenu par le vault (EscrowVault), pas dans les wallets.
-///         La DApp interroge ce contrat pour afficher l'état complet du chantier.
+///         Les deux NFT affichent la même donnée de devis via tokenURI.
+///         Chaque partie voit son NFT dans son wallet (Rabby, MetaMask, OpenSea)
+///         mais aucun transfert n'est autorisé tant que le chantier est en cours
+///         ni après : le NFT est soulbound à vie — preuve infalsifiable du contrat.
 ///
 ///         Données immuables : artisan, particulier, token, devisAmount,
 ///                             descriptions et montants des jalons, timestamps.
 ///         Données mutables  : statut de chaque jalon (mis à jour par le vault).
-///
-///         Soulbound : tout transfert est bloqué.
 contract ChantierNFT is IChantierNFT, ERC721, Ownable {
     using Strings for uint256;
+
+    // -------------------------------------------------------------------------
+    // Constantes — séparation des espaces d'ID
+    // -------------------------------------------------------------------------
+
+    /// @notice Offset appliqué aux tokenIds de l'artisan.
+    ///         Les tokenIds < ARTISAN_TOKEN_OFFSET sont ceux du particulier.
+    ///         Les tokenIds >= ARTISAN_TOKEN_OFFSET sont ceux de l'artisan.
+    uint256 public constant ARTISAN_TOKEN_OFFSET = 1 << 128;
 
     // -------------------------------------------------------------------------
     // État
@@ -61,8 +71,9 @@ contract ChantierNFT is IChantierNFT, ERC721, Ownable {
     // -------------------------------------------------------------------------
 
     /// @inheritdoc IChantierNFT
-    /// @dev Le tokenId est égal au chantierId pour une recherche directe.
-    ///      Le NFT est minté vers le vault (msg.sender = vault = owner).
+    /// @dev Dual-mint : 2 NFTs soulbound sont mintés — un pour chaque partie.
+    ///      tokenId particulier = chantierId
+    ///      tokenId artisan     = ARTISAN_TOKEN_OFFSET + chantierId
     function mintChantier(
         uint256 chantierId,
         string calldata name,
@@ -101,10 +112,26 @@ contract ChantierNFT is IChantierNFT, ERC721, Ownable {
             _jalonStatuses[chantierId].push(DataTypes.JalonStatus.Pending);
         }
 
-        // Mint du NFT vers le vault (owner = msg.sender)
-        _mint(msg.sender, chantierId);
+        // Dual-mint soulbound : une copie pour chaque partie
+        _mint(particulier, chantierId);
+        _mint(artisan, ARTISAN_TOKEN_OFFSET + chantierId);
 
         emit ChantierMinte(chantierId, msg.sender);
+    }
+
+    /// @notice Retourne le tokenId détenu par le particulier pour un chantier donné
+    function particulierTokenId(uint256 chantierId) external pure returns (uint256) {
+        return chantierId;
+    }
+
+    /// @notice Retourne le tokenId détenu par l'artisan pour un chantier donné
+    function artisanTokenId(uint256 chantierId) external pure returns (uint256) {
+        return ARTISAN_TOKEN_OFFSET + chantierId;
+    }
+
+    /// @notice Retrouve le chantierId sous-jacent à partir d'un tokenId (particulier ou artisan)
+    function chantierIdOf(uint256 tokenId) public pure returns (uint256) {
+        return tokenId >= ARTISAN_TOKEN_OFFSET ? tokenId - ARTISAN_TOKEN_OFFSET : tokenId;
     }
 
     /// @inheritdoc IChantierNFT
@@ -147,21 +174,28 @@ contract ChantierNFT is IChantierNFT, ERC721, Ownable {
 
     /// @notice Retourne les métadonnées complètes du chantier encodées en JSON base64.
     ///         Lisibles directement depuis un explorateur de blocs ou la DApp.
+    ///         Le nom inclut le rôle (Particulier / Artisan) pour différencier
+    ///         les deux NFT du chantier dans les wallets.
     function tokenURI(uint256 tokenId) public view override returns (string memory) {
         _requireOwned(tokenId);
-        DevisData memory d = _devisData[tokenId];
+        uint256 cid = chantierIdOf(tokenId);
+        DevisData memory d = _devisData[cid];
+        bool isArtisan = tokenId >= ARTISAN_TOKEN_OFFSET;
+        string memory role = isArtisan ? "Artisan" : "Particulier";
 
         string memory json = string.concat(
-            '{"name":"', d.name, ' (#', tokenId.toString(), ')",',
-            '"description":"Contrat de chantier - Protocole Trust BTP",',
+            '{"name":"', d.name, ' #', cid.toString(), ' - ', role, '",',
+            '"description":"NFT soulbound Trust BTP - preuve du contrat de chantier partagee entre le particulier et l\'artisan. Non transferable.",',
             '"attributes":[',
-            '{"trait_type":"Chantier ID","value":"', tokenId.toString(), '"},',
+            '{"trait_type":"Role du detenteur","value":"', role, '"},',
+            '{"trait_type":"Chantier ID","value":"', cid.toString(), '"},',
             '{"trait_type":"Nom","value":"', d.name, '"},',
             '{"trait_type":"Artisan","value":"', Strings.toHexString(uint256(uint160(d.artisan)), 20), '"},',
             '{"trait_type":"Particulier","value":"', Strings.toHexString(uint256(uint160(d.particulier)), 20), '"},',
             '{"trait_type":"Montant devis (USDC)","value":"', (d.devisAmount / 1e6).toString(), '"},',
-            '{"trait_type":"Nombre de jalons","value":"', uint256(d.jalonCount).toString(), '"}',
-            '],"jalons":', _buildJalonsJson(tokenId, d.jalonCount),
+            '{"trait_type":"Nombre de jalons","value":"', uint256(d.jalonCount).toString(), '"},',
+            '{"trait_type":"Soulbound","value":"true"}',
+            '],"jalons":', _buildJalonsJson(cid, d.jalonCount),
             "}"
         );
 
@@ -172,8 +206,28 @@ contract ChantierNFT is IChantierNFT, ERC721, Ownable {
     // Soulbound — tout transfert est bloqué
     // -------------------------------------------------------------------------
 
-    /// @dev Bloque tout transfert. Le NFT est lié au vault pour toujours.
-    function transferFrom(address, address, uint256) public pure override {
+    /// @dev Bloque tout transfert entre adresses. Seul le mint initial est permis.
+    ///      Empêche transferFrom, safeTransferFrom et toutes les variantes.
+    function _update(address to, uint256 tokenId, address auth)
+        internal
+        override
+        returns (address)
+    {
+        address from = _ownerOf(tokenId);
+        // Mint autorisé (from == 0x0), tout autre transfert bloqué
+        if (from != address(0) && to != address(0) && from != to) {
+            revert Soulbound();
+        }
+        return super._update(to, tokenId, auth);
+    }
+
+    /// @dev Bloque toute approbation — inutile pour un token non transférable
+    function approve(address, uint256) public pure override {
+        revert Soulbound();
+    }
+
+    /// @dev Bloque setApprovalForAll — inutile pour des tokens non transférables
+    function setApprovalForAll(address, bool) public pure override {
         revert Soulbound();
     }
 

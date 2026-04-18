@@ -3,10 +3,12 @@ pragma solidity ^0.8.28;
 
 import {DataTypes} from "../libraries/DataTypes.sol";
 
-/// @title IChantierNFT — Interface du NFT soulbound Trust BTP
+/// @title IChantierNFT — Interface du NFT soulbound Trust BTP (dual-mint)
 ///
-/// @notice Un seul NFT est minté par chantier au moment de l'acceptation du devis.
-///         Il est détenu par le vault (pas dans les wallets des utilisateurs).
+/// @notice Deux NFTs soulbound sont mintés par chantier :
+///           - un au particulier  (tokenId = chantierId)
+///           - un à l'artisan     (tokenId = ARTISAN_TOKEN_OFFSET + chantierId)
+///         Les deux sont visibles dans le wallet de leur détenteur mais non transférables.
 ///         Les données du devis (parties, montants, descriptions) sont immuables.
 ///         Les statuts des jalons sont mutables et mis à jour par le vault.
 ///         La DApp interroge ce contrat pour afficher l'état du chantier.

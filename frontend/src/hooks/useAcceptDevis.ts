@@ -1,11 +1,22 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useSignTypedData, useWriteContract, useWaitForTransactionReceipt, useReadContracts, useChainId } from 'wagmi'
-import { ESCROW_VAULT_ADDRESS, ESCROW_VAULT_ABI, TOKEN_ADDRESS, ERC20_PERMIT_ABI } from '@/lib/contracts'
+import { useSignTypedData, useWriteContract, useWaitForTransactionReceipt, useReadContracts, useReadContract, useChainId } from 'wagmi'
+import { ESCROW_VAULT_ADDRESS, ESCROW_VAULT_ABI, TOKEN_ADDRESS, ERC20_PERMIT_ABI, ERC20_ABI } from '@/lib/contracts'
 
 // Deadline : 20 minutes dans le futur (standard DeFi)
 const PERMIT_DEADLINE_SEC = 20 * 60
+
+// Circle USDC testnet Arbitrum Sepolia — domaine EIP-712 connu
+const CIRCLE_USDC_ADDRESSES = new Set([
+  '0x75faf114eafb1bdbe2f0316df893fd58ce46aa4d',
+].map(a => a.toLowerCase()))
+
+function resolveTokenVersion(rawVersion: string | undefined, tokenAddress: `0x${string}`): string {
+  // Circle USDC utilise "2" dans son domaine EIP-712 même si version() n'est pas exposée publiquement
+  if (CIRCLE_USDC_ADDRESSES.has(tokenAddress.toLowerCase())) return '2'
+  return rawVersion ?? '1'
+}
 
 /**
  * Hook EIP-2612 — signe le permit off-chain puis envoie acceptDevisWithPermit en 1 transaction.
@@ -36,8 +47,19 @@ export function useAcceptDevis(
 
   const nonce = permitData?.[0]?.result as bigint | undefined
   const tokenName = permitData?.[1]?.result as string | undefined
-  // USDC Circle Arbitrum Sepolia utilise version "2", mock OZ v5 utilise "1"
-  const tokenVersion = (permitData?.[2]?.result as string | undefined) ?? '1'
+  // Version du domaine EIP-712 : Circle USDC = "2", mock OZ v5 = "1"
+  const tokenVersion = resolveTokenVersion(permitData?.[2]?.result as string | undefined, TOKEN_ADDRESS)
+
+  // Lecture de l'allowance courante — pour le fallback approve+deposit
+  const { data: currentAllowance } = useReadContract({
+    address: TOKEN_ADDRESS,
+    abi: ERC20_ABI,
+    functionName: 'allowance',
+    args: walletAddress ? [walletAddress, ESCROW_VAULT_ADDRESS] : undefined,
+    query: { enabled: !!walletAddress },
+  })
+  const hasEnoughAllowance = (currentAllowance as bigint | undefined) !== undefined
+    && (currentAllowance as bigint) >= depositAmount
 
   const { signTypedData, isPending: isSigning, error: signError } = useSignTypedData()
   const { writeContract, data: txHash, isPending: isSending, error: writeError } = useWriteContract()
@@ -97,13 +119,38 @@ export function useAcceptDevis(
 
   // Étape 2 : envoyer la transaction acceptDevisWithPermit (1 transaction)
   function accept(yieldOptIn: boolean) {
-    if (!permitSig) return
+    if (!permitSig) {
+      // Fallback : pas de signature mais allowance suffisante → on peut quand même déposer
+      // en envoyant des v/r/s bidon (le try/catch du contrat les absorbe, safeTransferFrom fait le boulot)
+      if (hasEnoughAllowance) {
+        const dummyDeadline = BigInt(Math.floor(Date.now() / 1000) + PERMIT_DEADLINE_SEC)
+        setStep('sending')
+        writeContract({
+          address: ESCROW_VAULT_ADDRESS,
+          abi: ESCROW_VAULT_ABI,
+          functionName: 'acceptDevisWithPermit',
+          args: [chantierId, yieldOptIn, dummyDeadline, 0, '0x0000000000000000000000000000000000000000000000000000000000000000', '0x0000000000000000000000000000000000000000000000000000000000000000'],
+        })
+      }
+      return
+    }
     setStep('sending')
     writeContract({
       address: ESCROW_VAULT_ADDRESS,
       abi: ESCROW_VAULT_ABI,
       functionName: 'acceptDevisWithPermit',
       args: [chantierId, yieldOptIn, permitSig.deadline, permitSig.v, permitSig.r, permitSig.s],
+    })
+  }
+
+  // Fallback : approve classique en 1 tx (alternative au permit)
+  function approve() {
+    setStep('sending')
+    writeContract({
+      address: TOKEN_ADDRESS,
+      abi: ERC20_ABI,
+      functionName: 'approve',
+      args: [ESCROW_VAULT_ADDRESS, depositAmount],
     })
   }
 
@@ -121,7 +168,9 @@ export function useAcceptDevis(
   return {
     sign,
     accept,
+    approve,
     isSigned: !!permitSig,
+    hasEnoughAllowance,
     step,
     isPending: isSigning || isSending || isConfirming,
     isSuccess: isConfirmed,

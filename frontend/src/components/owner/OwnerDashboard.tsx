@@ -45,7 +45,7 @@ export function OwnerDashboard() {
           value={formatToken(platformFeesTotal)}
         />
         <StatCard
-          label="Yield DeFi disponible (USDC)"
+          label="Avantage fidélité disponible (USDC)"
           value={formatToken(yieldTotal)}
         />
         <StatCard
